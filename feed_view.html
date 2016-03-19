@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>CODESUYO VOTO 2016</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jasny-bootstrap.min.css">
+	<link rel="stylesheet" href="css/navmenu-reveal.css">
+	<link rel="stylesheet" href="css/codesuyo-jne.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="data_rss.js"></script>
+	<script type="text/javascript">
+            var array_noticias = [];
+            var aa = [];
+            $(document).ready(function () {
+				var data = data_rss;
+				console.log("data", data);
+                    var ul = $('<ul class="nav nav-tabs"></ul>')
+                            .append('<li class="active"><a href="#home">TODOS</a></li>');
+                    var tabContent = $('<div class="tab-content"></div>')
+                            .append('<div id="home" class="tab-pane fade in active">' +
+                                    '' +
+                                    '</div>');
+                    for (var i = 0; i < data.length; i++) {
+                        ul.append('<li><a href="#menu' + (i + 1) + '">' + data[i].NAME + '</a></li>');
+                        var tabPanel = $('<div id="menu' + (i + 1) + '" class="tab-pane fade"></div>');
+                        tabContent.append(tabPanel);
+                        crearContenidoNoticia(tabPanel, data[i], i);
+                    }
+                    $(".container").append(ul);
+                    $(".container").append(tabContent);
+                    array_noticias = burbuja(array_noticias);
+                    function burbuja(arreglo) {
+                        var auxiliar;
+                        var arregloOrdenado = [];
+                        for (var i = 2; i < arreglo.length; i++) {
+                            for (var j = 0; j < arreglo.length - i; j++) {
+                                if (new Date(arreglo[j].OBJDATA.pubDate) < new Date(arreglo[j + 1].OBJDATA.pubDate)) {
+                                    auxiliar = arreglo[j];
+                                    arreglo[j] = arreglo[j + 1];
+                                    arreglo[j + 1] = auxiliar;
+                                }
+                            }
+                        }
+                        arregloOrdenado = arreglo;
+                        return arregloOrdenado;
+                    }
+
+                    for (var i = 0; i < array_noticias.length; i++) {
+                        $("#home").append(array_noticias[i].HTML);
+                        clickDetalle(array_noticias[i].HTML, array_noticias[i].OBJDATA);
+                    }
+                    $(".nav-tabs a").click(function () {
+                        $(this).tab('show');
+                    });
+
+                    function crearContenidoNoticia(divContent, dataRSS, index) {
+                        var rss = $($.parseXML(dataRSS.DATA)); // CONVERT STRING TO XML
+                        var item_list = rss.find("item");
+                        for (var i = 0; i < item_list.length; i++) {
+                            var objData = {
+                                title: $(item_list[i]).find("title")[0].textContent,
+                                description: $(item_list[i]).find("description")[0].textContent,
+                                content: $(item_list[i]).find("content")[0].textContent,
+                                pubDate: $(item_list[i]).find("pubDate")[0].textContent,
+                                link: $(item_list[i]).find("link")[0].textContent,
+                                guid: $(item_list[i]).find("guid")[0].textContent,
+                                index: index,
+                                ITEM: $(item_list[i])
+                            };
+                            var semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+                            var mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+                            var date = new Date(objData.pubDate);
+                            var fechaPublicacion = semana[date.getDay()] + ", " + date.getDate() + " " + mes[date.getMonth()] + " " + date.getFullYear() + " " + formt(date.getHours()) + ":" + formt(date.getMinutes()) + ":" + formt(date.getSeconds());
+                            var item = $(
+                                    '<button type="button" class="list-group-item" data-toggle="modal" data-target=".bd-example-modal-lg">' +
+                                    '   <h4 class="list-group-item-heading">' + objData.title + '</h4>' +
+                                    '   <p class="list-group-item-text">' + objData.description + '</p>' +
+                                    '   <strong>' + fechaPublicacion + '</strong>' +
+                                    '</button>'
+                                    );
+                            var itemm = $(
+                                    '<button type="button" class="list-group-item" data-toggle="modal" data-target=".bd-example-modal-lg">' +
+                                    '   <h4 class="list-group-item-heading">' + objData.title + '</h4>' +
+                                    '   <p class="list-group-item-text">' + objData.description + '</p>' +
+                                    '   <strong>' + fechaPublicacion + '</strong>' +
+                                    '</button>'
+                                    );
+                            array_noticias.push({HTML: itemm, OBJDATA: objData});
+                            divContent.append(item);
+                            clickDetalle(item, objData);
+                        }
+                    }
+
+                    var btnClick = null;
+                    function clickDetalle(btn, objData) { 
+                        btn.click(function () {
+						
+                            btn.addClass("active");
+                            btnClick = btn;
+                            $("#modalHeader").html("<strong>" + objData.title + "</strong>");
+                            if (objData.index === 0) {
+                                $("#modalBody").html(objData.content);
+                            } else {
+                                var link = $($(objData.ITEM[0].children[3])).html();
+                                var img = $(objData.ITEM[0].children[6]).attr("url");
+                                $("#modalBody").html("<img src='" + img + "' style='width: 100%;' >");
+                                $("#modalBody").append("<a href='" + link + "' target='_self'>Ver más</a>");
+                            }
+                            $("#modalDetalle").modal('show');
+							setTimeout(function (){
+								$(".modal-backdrop").remove();
+							}, 400);
+							
+                        });
+                    }
+                    $('#modalDetalle').on('hidden.bs.modal', function (e) {
+                        btnClick.removeClass("active");
+                    });
+            });
+
+            function formt(numero) {
+                return (parseInt(numero) < 10) ? "0" + numero : numero;
+            }
+
+            function ajaxGenerico(url, dataType, data, func) {
+                $.ajax({
+                    async: true,
+                    url: url,
+                    type: "POST",
+                    dataType: dataType,
+                    data: data
+                }).done(function (data) {
+                    func(data);
+                }).fail(function (err) {
+                    func(err);
+                });
+            }
+			
+			
+
+        </script>
+</head>
+<body>
+	<nav id="navMenuLeft" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+		<a class="navmenu-brand" href="index.html">VOTO INFORMADO 2016</a>
+		<ul class="nav navmenu-nav">
+	        <li><a href="candidatos.html">Candidatos</a></li>
+	        <li><a href="vs.html">Comparar</a></li>
+	        <li><a href="feed_view.html">Noticias</a></li>
+	        <li><a href="encuesta.html">Encuestas</a></li>
+	        <li><a href="acercade.html">Acerca De</a></li>
+	     </ul>
+	</nav>
+
+	<div class="canvas">
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  	<button id="btnMenuTop" type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#navMenuLeft" data-canvas="body">
+		    	<span class="glyphicon glyphicon-menu-hamburger"></span>
+		  	</button>
+		  	<p class="text-center text-tittle">ELECCIONES PERÚ 2016</p>
+		</nav>
+		<div class="container">
+			<div id="modalDetalle" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong id="modalHeader"></strong>
+                    </div>
+                    <div class="modal-body"><div id="modalBody"></div></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!--<button type="button" class="btn btn-primary">Send message</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jasny-bootstrap.min.js"></script>
+</body>
+</html>

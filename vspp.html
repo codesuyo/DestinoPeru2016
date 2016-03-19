@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Expires" content="-1">
+	    <meta name="description" content="JNE-VS">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>CODESUYO VOTO 2016</title>
+		<link rel="icon" type="image/png" href="http://jne.drupal.com.pe/sites/default/files/loguito.png">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/jasny-bootstrap.min.css">
+		<link rel="stylesheet" href="css/navmenu-reveal.css">
+		<link rel="stylesheet" href="css/codesuyo-jne.css">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	    <!-- <link rel="stylesheet" type="text/css" href="css/animate.css"> -->
+	    <style type="text/css">
+		    body{
+		    	font: normal 15px 'Open Sans', sans-serif, Courier, monospace;
+		    	/*overflow: hidden;*/
+		    }
+	    	.red{
+				height: 220px;
+				background: #C92828;
+				padding: 15px;
+				overflow: hidden;
+	    	}
+	    	.blue{
+				height: 220px;
+				background: #286090;
+				padding: 15px;
+				overflow: hidden;
+	    	}
+	    	.red-l{
+	    		height: 110px;
+	    		background: rgba(255, 0, 0, 0.35);
+	    		margin-top: 55px;
+	    		width: 55%;
+	    	}
+	    	.blue-l{
+	    		height: 110px;
+	    		background: rgba(40, 96, 144, 0.35);
+	    		margin-top: 55px;
+	    		width: 55%;
+	    	}
+	    	.circle{
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+	    		text-align: center;
+	    		background: #337ab7;
+	    		color: #FFF;
+	    		padding-top: 12px;
+				position: absolute;
+				top: 88px;
+				cursor: pointer;
+	    	}
+	    	.circle-vs{
+				border-radius: 50%;
+				width: 50px;
+				height: 50px;
+	    		text-align: center;
+	    		background: #000;
+	    		color: #FFF;
+	    		padding-top: 12px;
+				cursor: pointer;
+	    	}
+	    	.text-partido{
+				font-size: 1.1em;
+				color: #FFF;
+				display: block;
+			    margin-bottom: 7px;
+	    	}
+	    	.img-partido{
+	    		height: 150px;
+    		    display: block;
+    			margin-right: auto;
+    			margin-left: auto;
+	    	}
+	    	@media (max-width: 768px) {
+		    	.text-partido{
+					font-size: 0.85em;
+		    	}
+	    	}
+	    	.panel-img-partido{
+	    		overflow: hidden;
+	    		height: 150px;
+	    	}
+	    	.img-partido-left{
+				position: absolute;
+				left: -100%;
+				visibility: hidden;
+	    	}
+	    	.img-partido-right{
+				position: absolute;
+				left: 100%;
+				visibility: hidden;
+	    	}
+	    	.header-vs{
+	    		background: #9D9D9D;
+	    		color: #FFf;
+	    	}
+	    	.text-vs{
+				color: #C92828;
+				display: block;
+				text-align: center;
+	    	}
+	    	h3{
+	    		margin-top: 20px;
+				margin-bottom: 20px;
+	    	}
+	    	.panel-default>.panel-heading, .panel-default>.panel-footer {
+	    		background: #286090;
+	    	}
+	    	.nav-tabs {
+			    border: none;
+			}
+	    	.nav-tabs>li>a{
+				background: transparent;
+			    color: #FFF;
+			    border: none;
+			    font-size: 0.85em;
+	    	}
+	    	.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover{
+				background: transparent;
+			    color: #FFF;
+			    border: none;
+			    border-bottom: 3px solid #5bc0de;
+	    	}
+	    	.nav>li>a:hover {
+				text-decoration: none;
+				background-color: transparent;
+			    border-bottom: 3px solid #FFF;
+			}
+	    	.nav>li>a {
+				padding: 7px 10px;
+			}
+			.panel-one{
+				background: #FFF;
+			}
+			.panel-two{
+				position: absolute;
+				margin-left: 100%;
+				background: #FFF;
+			}
+			.btn-return{
+			    margin-top: 30px;
+			    margin-bottom: 30px;
+			}
+			.p-retu{
+				border: 1px solid #FFF;
+			}
+	    </style>
+	</head>
+	<body>
+		<nav id="navMenuLeft" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+			<a class="navmenu-brand" href="index.html">VOTO INFORMADO 2016</a>
+			<ul class="nav navmenu-nav">
+		        <li><a href="candidatos.html">Candidatos</a></li>
+	        <li><a href="vs.html">Comparar</a></li>
+	        <li><a href="feed_view.html">Noticias</a></li>
+	        <li><a href="encuesta.html">Encuestas</a></li>
+	        <li><a href="acercade.html">Acerca De</a></li>
+		     </ul>
+		</nav>
+		<div class="canvas">
+			<nav class="navbar navbar-default navbar-fixed-top">
+			  	<button id="btnMenuTop" type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#navMenuLeft" data-canvas="body">
+			    	<span class="glyphicon glyphicon-menu-hamburger"></span>
+			  	</button>
+			  	<p class="text-center text-tittle" style="text-align: left;">ELECCIONES PERÚ 2016</p>
+			</nav>
+			<div class="container" id="contenedor">
+				<div class="col-xs-12 col-sm-12">
+					<br>
+				</div>
+				<div class="panel-one col-xs-12 col-sm-12">
+					<div class="row">
+						<div class="col-xs-6 col-sm-4 col-md-3 alert alert-success">
+							<a class="thumbnail op-x-plan" id="1" href="#">
+								<img alt="" style=" height: 125px;" src="http://codesuyo.esy.es/img/social.png">
+							</a>
+							<center>
+								<strong>
+									Social
+								</strong>
+							</center>
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-3 alert alert-info">
+							<a class="thumbnail op-x-plan" id="2" href="#">
+								<img alt="" style=" height: 125px;" src="http://codesuyo.esy.es/img/institucional.png">
+							</a>
+							<center>
+								<strong>
+									Institucional
+								</strong>
+							</center>
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-3 alert alert-warning">
+							<a class="thumbnail op-x-plan" id="3" href="#">
+								<img alt="" style=" height: 125px;" src="http://codesuyo.esy.es/img/economia.png">
+							</a>
+							<center>
+								<strong>
+									Economica
+								</strong>
+							</center>
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-3 alert alert-danger">
+							<a class="thumbnail op-x-plan" id="4" href="#">
+								<img alt="" style=" height: 125px;" src="http://codesuyo.esy.es/img/peru.png">
+							</a>
+							<center>
+								<strong>
+									Territorial
+								</strong>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div class="panel-two col-xs-12 col-sm-12">
+					<div class="row">
+						<div class="col-xs-2 col-sm-2 col-md-2 header-vs p-retu">
+							<div class="row">
+								<button type="button" class="btn btn-default btn-return center-block">
+									<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+						<div class="col-xs-10 col-sm-10 col-md-10 header-vs">
+							<h4 class="text-left">
+								P1
+							</h4>
+							<span class="text-vs">vs</span>
+							<h4 class="text-right">
+								P2
+							</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<br>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-6">
+							<div class="row">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<ul class="nav nav-tabs">
+											<li class="propsts_a active" id="0" role="presentation"><a href="#">Propuesta 1</a></li>
+											<li class="propsts_a" id="1" role="presentation"><a href="#">Propuesta 2</a></li>
+											<li class="propsts_a" id="2" role="presentation"><a href="#">Propuesta 3</a></li>
+										</ul>
+									</div>
+									<div class="panel-body pp1">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos optio dignissimos, quasi voluptatem dolore, nesciunt totam doloremque vel accusantium perferendis facere fugit perspiciatis. Optio consequuntur delectus fuga eveniet, alias cumque, itaque fugiat deserunt, unde totam quibusdam non dignissimos. Autem numquam, modi! Tenetur aliquam totam odit, vero libero delectus. Fugit, autem.
+									</div>
+									<div class="panel-footer">
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 visible-xs">
+							<br>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-6">
+							<div class="row">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<ul class="nav nav-tabs">
+											<li class="propsts_b active" id="0" role="presentation"><a href="#">Propuesta 1</a></li>
+											<li class="propsts_b" id="1" role="presentation"><a href="#">Propuesta 2</a></li>
+											<li class="propsts_b" id="2" role="presentation"><a href="#">Propuesta 3</a></li>
+										</ul>
+									</div>
+									<div class="panel-body pp2">
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos optio dignissimos, quasi voluptatem dolore, nesciunt totam doloremque vel accusantium perferendis facere fugit perspiciatis. Optio consequuntur delectus fuga eveniet, alias cumque, itaque fugiat deserunt, unde totam quibusdam non dignissimos. Autem numquam, modi! Tenetur aliquam totam odit, vero libero delectus. Fugit, autem.
+									</div>
+									<div class="panel-footer">
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<br>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jasny-bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="js/bootstrap-notify.min.js"></script> -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			data = null;
+			var qs = function () {
+			    var query_string = {};
+			    var query = window.location.search.substring(1);
+			    var vars = query.split("&");
+			    for (var i=0;i<vars.length;i++) {
+				    var pair = vars[i].split("=");
+				    if (typeof query_string[pair[0]] === "undefined") {
+				    	query_string[pair[0]] = decodeURIComponent(pair[1]);
+				    } else if (typeof query_string[pair[0]] === "string") {
+				    	var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+				    	query_string[pair[0]] = arr;
+				    } else {
+				    	query_string[pair[0]].push(decodeURIComponent(pair[1]));
+				    }
+			    }
+			    return query_string;
+		    }();
+
+			$.ajax({
+				type: 'POST',
+				url: 'http://codesuyo.esy.es/action/propuestas_json.php?a=' + qs.a + '&b=' + qs.b,
+				data: "{}",
+				success: function (data) {
+					data = JSON.parse(data);
+					for (var i = data.length - 1; i >= 0; i--) {
+						if(data[i].id_partido == qs.a){
+							$('.text-left').html(data[i].nombre_partido);
+						}
+						if(data[i].id_partido == qs.b){
+							$('.text-right').html(data[i].nombre_partido);
+						}
+					}
+					$('.op-x-plan').click(function(event) {
+						var xd = this;
+						$('.panel-one').fadeOut('slow');
+						$('.panel-two').animate({
+							marginLeft: "-15px"
+						}, 'slow', function() {
+							var id = $(xd).attr("id");
+							var propuestas_a = Array();
+							var propuestas_b = Array();
+							for (var i = data.length - 1; i >= 0; i--) {
+								if(data[i].id_partido == qs.a && data[i].id_plangob == id){
+									propuestas_a.push(data[i].detalle);
+								}
+								if(data[i].id_partido == qs.b && data[i].id_plangob == id){
+									propuestas_b.push(data[i].detalle);
+								}
+							}
+							console.log(propuestas_a,propuestas_b);
+
+							$('.pp1').html(propuestas_a[0]);
+							$('.pp2').html(propuestas_b[0]);
+
+							$('.propsts_a').click(function(event) {
+								var id_pp = $(this).attr('id');
+								$('.pp1').html(propuestas_a[id_pp]);
+								$('li.active.propsts_a').removeClass('active');
+								$(this).addClass('active');
+							});
+
+							$('.propsts_b').click(function(event) {
+								var id_pp = $(this).attr('id');
+								$('.pp2').html(propuestas_b[id_pp]);
+								$('li.active.propsts_b').removeClass('active');
+								$(this).addClass('active');
+							});
+
+							$('.panel-one').animate({
+								marginLeft: "-99%"
+							}, 'fast');
+						});
+					});
+					$('.btn-return').click(function(event) {
+						$('.panel-one').fadeIn('fast');
+						$('.panel-two').fadeOut('slow');
+						$('.panel-one').animate({
+							marginLeft: "0px"
+						}, 'slow', function() {
+							$('.panel-two').animate({
+								marginLeft: "100%"
+							}, 'fast');
+							$('.panel-two').fadeIn('fast');
+						});
+					});
+				},
+				error: function() { nt("No se encontraron datos generados"); }
+			});
+		});
+		function nt(message, type, icon, delay) {
+		    $.notify({
+		        icon: icon,
+		        message: message
+		    }, {
+		        type: type,
+		        element: 'body',
+		        placement: {
+		            from: "bottom",
+		            align: "left"
+		        },
+		        offset: 20,
+		        delay: delay,
+		        mouse_over: 'pause',
+		        animate: {
+		            enter: 'animated fadeInDown',
+		            exit: 'animated fadeOutUp'
+		        },
+		        template: '<div data-notify="container" class="col-xs-10 col-sm-3 alert alert-{0}" role="alert">' +
+		                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+		                '<span data-notify="icon"></span> ' +
+		                '<span data-notify="title">{1}</span> ' +
+		                '<strong data-notify="message">{2}</strong>' +
+		                '<div class="progress" data-notify="progressbar">' +
+		                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+		                '</div>' +
+		                '<a href="{3}" target="{4}" data-notify="url"></a>' +
+		                '</div>'
+		    });
+		}
+	</script>
+</html>

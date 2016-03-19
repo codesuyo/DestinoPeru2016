@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>CODESUYO VOTO 2016</title>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jasny-bootstrap.min.css">
+	<link rel="stylesheet" href="css/navmenu-reveal.css">
+	<link rel="stylesheet" href="css/codesuyo-jne.css">
+	
+</head>
+<body>
+
+	<nav id="navMenuLeft" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+		<a class="navmenu-brand" href="index.html">VOTO INFORMADO 2016</a>
+		<ul class="nav navmenu-nav">
+	        <li><a href="candidatos.html">Candidatos</a></li>
+	        <li><a href="vs.html">Comparar</a></li>
+	        <li><a href="feed_view.html">Noticias</a></li>
+	        <li><a href="encuesta.html">Encuestas</a></li>
+	        <li><a href="acercade.html">Acerca De</a></li>
+	     </ul>
+	</nav>
+
+	<div class="canvas">
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  	<button id="btnMenuTop" type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#navMenuLeft" data-canvas="body">
+		    	<span class="glyphicon glyphicon-menu-hamburger"></span>
+		  	</button>
+		  	<p class="text-center text-tittle">ELECCIONES PERÚ 2016</p>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<br/>
+				<div class="col-xs-1"></div>
+				<div class="col-xs-10">
+					<div>
+					  	<!-- Nav tabs -->
+					  	<ul class="nav nav-tabs row" role="tablist">
+					  	  	<li id="li1" role="presentation" class="active col-xs-4 li-prop"><a href="#prop1" aria-controls="prop1" role="tab" data-toggle="tab">Propuesta 1</a></li>
+					  	  	<li id="li2" role="presentation" class="col-xs-4 li-prop"><a href="#prop2" aria-controls="prop2" role="tab" data-toggle="tab">Propuesta 2</a>	</li>
+					  	  	<li id="li3" role="presentation" class="col-xs-4 li-prop"><a href="#prop3" aria-controls="prop3" role="tab" data-toggle="tab">Propuesta 3</a	></li>
+					  	</ul>
+
+					  	<!-- Tab panes -->
+					  	<div class="tab-content">
+						  	<div role="tabpanel" class="tab-pane fade in active" id="prop1">
+						  		<br/>
+						  		<p id="pp1" class="text-pp" value=""></p>
+						  	</div>
+						  	<div role="tabpanel" class="tab-pane fade" id="prop2">
+						  		<br/>
+						  		<p id="pp2" class="text-pp" value=""></p>
+						  	</div>
+						  	<div role="tabpanel" class="tab-pane fade" id="prop3">
+						  		<br/>
+						  		<p id="pp3" class="text-pp" value=""></p>
+						  	</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xs-1"></div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jasny-bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+
+			var qs = function () {
+		   		var query_string = {};
+		   		var query = window.location.search.substring(1);
+		   		var vars = query.split("&");
+		   		for (var i=0;i<vars.length;i++) {
+		   			var pair = vars[i].split("=");
+		   			if (typeof query_string[pair[0]] === "undefined") {
+		    			query_string[pair[0]] = decodeURIComponent(pair[1]);
+			   		} else if (typeof query_string[pair[0]] === "string") {
+			    		var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+			    		query_string[pair[0]] = arr;
+			   		} else {
+			    		query_string[pair[0]].push(decodeURIComponent(pair[1]));
+			   		}
+		   		}
+		   		return query_string;
+		   	}();
+
+			ajaxGenerico("http://codesuyo.esy.es/action/PropPlanDeGob.php","json",{"ID_PP":qs.id_pp,"ID_PG":qs.id_pg},function(data){
+				console.log(data[0]["detalle"]);
+				$("#pp1").text(data[0]["detalle"]);
+				$("#pp2").text(data[1]["detalle"]);
+				$("#pp3").text(data[2]["detalle"]);
+			});
+		});
+
+		$('#myTabs a').click(function (e) {
+		  	e.preventDefault()
+		  	$(this).tab('show')
+		});
+
+		function ajaxGenerico(url, dataType, data, func) {
+            $.ajax({
+                   async: true,
+                   url: url,
+                   type: "POST",
+                   dataType: dataType,
+                   data: data
+            }).done(function(data) {
+                   func(data);
+            }).fail(function(err) {
+                   func(err);
+            });
+        }
+	</script>
+</body>
+</html>

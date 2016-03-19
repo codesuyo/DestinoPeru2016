@@ -1,0 +1,30 @@
+#navMenuLeft {
+	width: 80%;
+	background-color: #ffffff;
+}
+
+#btnMenuTop {
+	background-color: #C92828;
+	border-width: 0px;
+	color: #ffffff;
+	font-size: 12px;
+}
+
+#btnMenuTop:hover {
+	background-color: #D93B3B;
+	border-width: 0px;
+}
+
+.text-tittle{
+	width: 100%;
+	margin: 15px;
+	color: #ffffff;
+	font-weight: bold;
+	margin-left: -70px;
+}
+
+.alert-success{
+	color: #000000;
+    background-color: rgba(226, 175, 0, 0.56);
+    border-color: #FFFFFF;
+}

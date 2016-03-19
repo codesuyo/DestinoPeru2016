@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>CODESUYO VOTO 2016</title>
+	<script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+    <script src="js/liquidFillGauge.js" language="JavaScript"></script>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jasny-bootstrap.min.css">
+	<link rel="stylesheet" href="css/navmenu-reveal.css">
+	<link rel="stylesheet" href="css/codesuyo-jne.css">
+	
+</head>
+<body>
+	<nav id="navMenuLeft" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+		<a class="navmenu-brand" href="index.html">VOTO INFORMADO 2016</a>
+		<ul class="nav navmenu-nav">
+	        <li><a href="candidatos.html">Candidatos</a></li>
+	        <li><a href="vs.html">Comparar</a></li>
+	        <li><a href="feed_view.html">Noticias</a></li>
+	        <li><a href="encuesta.html">Encuestas</a></li>
+	        <li><a href="acercade.html">Acerca De</a></li>
+	     </ul>
+	</nav>
+
+	<div class="canvas">
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  	<button id="btnMenuTop" type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#navMenuLeft" data-canvas="body">
+		    	<span class="glyphicon glyphicon-menu-hamburger"></span>
+		  	</button>
+		  	<p class="text-center text-tittle">ELECCIONES PERÚ 2016</p>
+		</nav>
+		<div class="container">
+			<center>
+				<br>
+				<h4> QUEDAN </h4>
+				<svg id="fillgauge3" width="19%" height="50"></svg>
+				<svg id="fillgauge4" width="19%" height="50"></svg>
+				<svg id="fillgauge5" width="19%" height="50"></svg>
+				<h4> PARA EL DIA DE LAS ELECCIONES </h4>
+			</center>
+			<div class="row">
+			  <div class="col-xs-6 col-md-3 alert alert-success">
+				<a class="thumbnail" href="candidatos.html">
+					<img alt="" style="max-width: 50%;max-height: 50%;" src="imagenes/candidato.png">
+				</a>
+				<center>Candidatos</center>
+			  </div>
+			  <div class="col-xs-6 col-md-3 alert alert-success">
+				<a class="thumbnail" href="vs.html">
+					<img alt="" style="max-width: 50%;max-height: 50%;" src="imagenes/vs.png">
+				</a>
+				<center>Comparar</center>
+			  </div>
+			  <div class="col-xs-6 col-md-3 alert alert-success">
+				<a class="thumbnail" href="feed_view.html">
+					<img alt="" style="max-width: 50%;max-height: 50%;" src="imagenes/curiosidad.png">
+				</a>
+				<center>Noticias</center>
+			  </div>
+			  <div class="col-xs-6 col-md-3 alert alert-success">
+				<a class="thumbnail" href="encuesta.html">
+					<img alt="" style="max-width: 50%;max-height: 50%;" src="imagenes/encuesta.png">
+				</a>
+				<center>Encuestas</center>
+			  </div>
+			  <div class="col-xs-6 col-md-3 alert alert-success">
+				<a class="thumbnail" href="acercade.html">
+					<img alt="" style="max-width: 50%;max-height: 50%;" src="imagenes/acercade.png">
+				</a>
+				<center>Acerca De</center>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<script language="JavaScript">
+		function dias(){ 
+			momentoActual = new Date(); 
+			hoy = momentoActual.getDate() + "/" + (momentoActual.getMonth() +1) + "/" + momentoActual.getFullYear();
+			elecciones = '10/04/2016';
+			
+			 var aFecha1 = hoy.split('/'); 
+			 var aFecha2 = elecciones.split('/'); 
+			 var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+			 var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]); 
+			 var dif = fFecha2 - fFecha1;
+			 var dia = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+			
+			return dia;
+			
+		}
+		function horas(){ 
+			momentoActual = new Date(); 
+			hora = momentoActual.getHours(); 
+			hora_eleccion = 8;
+			
+			if(hora>8){
+				var diff = 24 - hora;
+				var difi = diff + 7;
+			 }else if(hora<=8){
+				var difi = 7 - hora;
+			}
+			return difi;
+			
+		}
+		function minutos(){ 
+			momentoActual = new Date(); 
+			hoy = momentoActual.getDate() + "/" + (momentoActual.getMonth() +1) + "/" + momentoActual.getFullYear();
+			hora = momentoActual.getHours(); 
+			minuto = momentoActual.getMinutes(); 
+			segundo = momentoActual.getSeconds(); 
+			elecciones = '10/04/2016';
+			hora_eleccion = 8;
+			minuto_eleccion = 0;
+			
+			 var aFecha1 = hoy.split('/'); 
+			 var aFecha2 = elecciones.split('/'); 
+			 var fFecha1 = Date.UTC(aFecha1[2],aFecha1[1]-1,aFecha1[0]); 
+			 var fFecha2 = Date.UTC(aFecha2[2],aFecha2[1]-1,aFecha2[0]); 
+			 var dif = fFecha2 - fFecha1;
+			 var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+			 
+			if(hora>8){
+				var diff = 24 - hora;
+				var difi = diff + 7;
+			 }else if(hora<=8){
+				var difi = 7 - hora;
+			}
+			
+			var minutos = 60 - minuto;
+
+			horaImprimible = minutos;
+			
+			return horaImprimible;
+			
+		}
+		var config2 = liquidFillGaugeDefaultSettings();
+		config2.circleColor = "#D4AB6A";
+		config2.textColor = "#553300";
+		config2.waveTextColor = "#805615";
+		config2.waveColor = "#AA7D39";
+		config2.textVertPosition = 0.8;
+		config2.waveAnimateTime = 2000;
+		config2.waveHeight = 0.15;
+		config2.displayPercent = false;
+		config2.waveCount = 1;
+		var gauge3 = loadLiquidFillGauge("fillgauge3", dias(), config2);
+	   var config3 = liquidFillGaugeDefaultSettings();
+		 config3.circleColor = "#D4AB6A";
+		config3.textColor = "#553300";
+		config3.waveTextColor = "#805615";
+		config3.waveColor = "#AA7D39";
+		config3.textVertPosition = 0.8;
+		config3.waveAnimateTime = 2000;
+		config3.waveHeight = 0.15;
+		config3.displayPercent = false;
+		config3.waveCount = 1;
+		var gauge4 = loadLiquidFillGaugehoras("fillgauge4", horas(), config3);
+	   var config4 = liquidFillGaugeDefaultSettings();
+		config4.circleColor = "#D4AB6A";
+		config4.textColor = "#553300";
+		config4.waveTextColor = "#805615";
+		config4.waveColor = "#AA7D39";
+		config4.textVertPosition = 0.8;
+		config4.waveAnimateTime = 2000;
+		config4.waveHeight = 0.15;
+		config4.displayPercent = false;
+		config4.waveCount = 1;
+		var gauge5 = loadLiquidFillGaugeMinutos("fillgauge5", minutos(), config4);
+	</script>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jasny-bootstrap.min.js"></script>
+</body>
+</html>
